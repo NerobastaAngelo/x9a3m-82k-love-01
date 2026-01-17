@@ -101,6 +101,28 @@ button {
 .hidden {
   display: none;
 }
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heart-confetti {
+  position: absolute;
+  top: -10%;
+  font-size: 22px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh);
+    opacity: 0;
+  }
+}
+
 </style>
 </head>
 
@@ -139,6 +161,8 @@ button {
 
   </div>
 </div>
+<!-- CONFETI -->
+<div id="confetti"></div>
 
 <script>
 /* ====== ANIMACIÓN CORAZÓN ====== */
@@ -213,9 +237,13 @@ function showQuestion() {
 
 /* ====== RESPUESTA ====== */
 function sayYes() {
+  launchConfetti();
+
   document.getElementById("question").innerHTML =
-    "Gracias por decir que sí, Mein Liebe 💖<br><br>Prometo cuidar esto tan bonito que empieza hoy y espero duremos toda la vida.";
+    "Gracias por decir que sí, Mein Liebe 💖<br><br>Hoy empieza algo muy bonito y espero dure toda la vida.";
+
   document.getElementById("yesBtn").style.display = "none";
+  document.getElementById("noBtn").style.display = "none";
 }
 
 function noBug() {
@@ -233,6 +261,27 @@ function noBug() {
     question.innerHTML = "Alessandra… ¿quieres ser mi Waifu? 💕";
   }, 2000);
 }
+
+function launchConfetti() {
+  const confetti = document.getElementById("confetti");
+
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart-confetti";
+    heart.textContent = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 2) + "s";
+    heart.style.fontSize = (18 + Math.random() * 18) + "px";
+
+    confetti.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }
+}
+
+
 
 </script>
 
