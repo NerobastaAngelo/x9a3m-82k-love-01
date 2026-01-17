@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💖 Para Alessandra</title>
+
+<!-- Modo app en iPhone -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#ff5f8f">
+
+<!-- Privacidad -->
+<meta name="robots" content="noindex, nofollow">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+/* Loader */
+#loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart {
+  font-size: 100px;
+  position: relative;
+}
+
+.fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  overflow: hidden;
+  transition: height 0.03s linear;
+}
+
+.fill span {
+  font-size: 100px;
+}
+
+#percent {
+  margin-top: 15px;
+  font-size: 22px;
+}
+
+/* App */
+#app {
+  display: none;
+}
+
+.card {
+  background: rgba(255,255,255,0.15);
+  padding: 28px;
+  border-radius: 22px;
+  max-width: 340px;
+  max-height: 80vh;        /* 👈 clave */
+  overflow-y: auto;       /* 👈 clave */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+ -webkit-overflow-scrolling: touch;
+}
+
+.poem {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 18px 0;
+  min-height: 200px;
+  white-space: pre-line;
+}
+
+button {
+  margin-top: 18px;
+  padding: 16px;
+  font-size: 17px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  background: white;
+  color: #ff2f6d;
+  width: 100%;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CARGA -->
+<div id="loader">
+  <div class="heart">
+    🤍
+    <div class="fill" id="fill">
+      <span>❤️</span>
+    </div>
+  </div>
+  <div id="percent">0%</div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="card" id="card">
+
+    <h1 id="title">💖</h1>
+    <h2 id="subtitle">Esto es para ti, Alessandra</h2>
+
+    <!-- POEMA -->
+    <div class="poem" id="poem"></div>
+
+    <button id="continueBtn" onclick="showQuestion()">Continuar 💫</button>
+
+    <!-- PREGUNTA -->
+    <p id="question" class="hidden" style="font-size:19px; margin-top:20px;">
+        Alessandra… ¿quieres ser mi Waifu? 💕
+      </p>
+      
+      <button id="yesBtn" class="hidden" onclick="sayYes()">💖 Sí 💖</button>
+      <button id="noBtn" class="hidden" onclick="noBug()">🙃 No</button>
+
+  </div>
+</div>
+
+<script>
+/* ====== ANIMACIÓN CORAZÓN ====== */
+let percent = 0;
+const fill = document.getElementById("fill");
+const percentText = document.getElementById("percent");
+
+const interval = setInterval(() => {
+  percent++;
+  fill.style.height = percent + "%";
+  percentText.textContent = percent + "%";
+
+  if (percent >= 100) {
+    clearInterval(interval);
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("app").style.display = "flex";
+      typePoem();
+    }, 500);
+  }
+}, 25);
+
+/* ====== POEMA TYPEWRITER ====== */
+const poemText = `Alessandra,
+
+No soy perfecto, lo sé,
+a veces dudo, a veces me pierdo,
+pero hay algo claro en mi fe:
+contigo, incluso el caos es menos miedo.
+
+Como Denji, quiero lo sencillo,
+no pido más que algo real,
+una risa, un motivo,
+alguien con quien despertar normal.
+
+Y como Reze, aun temblando,
+con secretos que pesan en la piel,
+me quedo, incluso dudando,
+porque sentir contigo vale más que huir de él.
+
+No prometo finales de cuento,
+ni días sin nubes o temor,
+pero sí quedarme en el intento
+y elegirte, incluso cuando haya dolor.
+
+Si el mundo se rompe o arde,
+yo no quiero correr ni esconderme,
+prefiero sentarme a tu lado
+y que lo simple… sea tenerte.`;
+
+
+let i = 0;
+const poemElement = document.getElementById("poem");
+
+function typePoem() {
+  if (i < poemText.length) {
+    poemElement.textContent += poemText.charAt(i);
+    i++;
+    setTimeout(typePoem, 35);
+  }
+}
+
+/* ====== TRANSICIÓN A LA PREGUNTA ====== */
+function showQuestion() {
+  document.querySelector(".poem").style.display = "none";
+  document.getElementById("continueBtn").style.display = "none";
+
+  document.getElementById("question").classList.remove("hidden");
+  document.getElementById("yesBtn").classList.remove("hidden");
+  document.getElementById("noBtn").classList.remove("hidden");
+}
+
+/* ====== RESPUESTA ====== */
+function sayYes() {
+  document.getElementById("question").innerHTML =
+    "Gracias por decir que sí, Mein Liebe 💖<br><br>Prometo cuidar esto tan bonito que empieza hoy y espero duremos toda la vida.";
+  document.getElementById("yesBtn").style.display = "none";
+}
+
+function noBug() {
+  const question = document.getElementById("question");
+  const noBtn = document.getElementById("noBtn");
+
+  question.innerHTML =
+    "Uy… eso es un bug 😳<br>No debería estar esa opción aquí.";
+
+  // Quitar el botón NO
+  noBtn.style.display = "none";
+
+  // Volver a mostrar la pregunta después de 2 segundos
+  setTimeout(() => {
+    question.innerHTML = "Alessandra… ¿quieres ser mi Waifu? 💕";
+  }, 2000);
+}
+
+</script>
+
+</body>
+</html>
