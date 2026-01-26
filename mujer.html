@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🌷 Para Mi Amorcito</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f2c6de">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ================= SOBRE ================= */
+#envelopeWrapper {
+  position: absolute;
+}
+
+.envelope {
+  width: 320px;
+  height: 220px;
+  background: #f7e7ef;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 50%,
+    #f2c6de 50%
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+}
+
+/* Solapa */
+.flap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #f2c6de;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  transform-origin: top;
+  animation: openFlap 2s ease forwards;
+  animation-delay: 1s;
+  z-index: 2;
+}
+
+/* ================= CARTA INTERNA ================= */
+.letter {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 25px;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  animation: slideUp 2s ease forwards;
+  animation-delay: 2.5s;
+  z-index: 3;
+  color: #000;
+  text-align: center;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+/* ================= CARTA FINAL ================= */
+#finalLetter {
+  display: none;
+  position: absolute;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 30px;
+  max-width: 320px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  text-align: center;
+  color: #000;
+  animation: fadeInUp 2s ease forwards;
+}
+
+/* ================= CORAZONES ================= */
+.heart {
+  position: absolute;
+  font-size: 16px;
+  animation: float 6s linear infinite;
+  opacity: 0.4;
+}
+
+/* ================= ANIMACIONES ================= */
+@keyframes openFlap {
+  to { transform: rotateX(180deg); }
+}
+
+@keyframes slideUp {
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SOBRE + CARTA INICIAL -->
+<div id="envelopeWrapper">
+  <div class="envelope">
+    <div class="flap"></div>
+
+    <div class="letter">
+      <h1>🌷 Alessandra</h1>
+
+      <p>
+        Hoy se celebra más que una fecha,<br>
+        se celebra tu fuerza,<br>
+        tu sensibilidad<br>
+        y todo lo que eres.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- CARTA FINAL -->
+<div id="finalLetter">
+  <h1>💖 Mi amor</h1>
+
+  <p>
+    Gracias por ser inspiración,<br>
+    por tu fortaleza,<br>
+    y por la forma tan hermosa<br>
+    en la que existes.
+  </p>
+
+  <p>
+    Feliz Día de la Mujer 🌷<br>
+    Te admiro y te amo, Alessandra.
+  </p>
+</div>
+
+<script>
+// Dar tiempo para leer la carta inicial
+setTimeout(() => {
+  document.getElementById("envelopeWrapper").style.display = "none";
+}, 9000); // 9 segundos para leer tranquilo
+
+// Pausa emocional + carta final
+setTimeout(() => {
+  document.getElementById("finalLetter").style.display = "block";
+}, 12000); // 3 segundos después
+
+/* Corazones */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (14 + Math.random() * 14) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}, 800);
+</script>
+
+</body>
+</html>
